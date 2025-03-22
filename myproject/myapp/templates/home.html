@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if products|length == 0 %}
+    <p>No records found</p>
+{% else %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">S.No</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Created At</th>
+                <th scope="col">Updated At</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in products %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>  <!-- Fixed loop index -->
+                <td>{{ data.name }}</td>
+                <td>{{ data.description }}</td>
+                <td>{{ data.price }}</td>
+                <td>{{ data.stock }}</td>
+                <td>{{ data.created_at }}</td>
+                <td>{{ data.updated_at }}</td>
+                <td>
+                    <a href="/data/{{data.id}}" type="button"
+                        class="btn btn-danger btn-sm">Delete</a>
+                    <a href="{% url 'update_product' product_id=data.id %}" class="btn btn-warning btn-sm">Update</a>
+
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+
+{% endblock %}
